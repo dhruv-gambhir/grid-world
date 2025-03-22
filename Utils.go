@@ -56,3 +56,28 @@ func PrintPolicy() {
 	}
 	fmt.Println()
 }
+
+func PrintValuePolicy(policy [numRows][numCols]string) {
+    for r := 0; r < numRows; r++ {
+        for c := 0; c < numCols; c++ {
+            cell := policy[r][c]
+            if cell == "[W]" {
+                fmt.Printf("W  ")
+            } else {
+				switch cell {
+				case "U":
+					fmt.Printf("↑  ")
+				case "R":
+					fmt.Printf("→  ")
+				case "L":
+					fmt.Printf("←  ")
+				case "D":
+					fmt.Printf("↓  ")
+				}
+            }
+        }
+        fmt.Println()
+    }
+    fmt.Println()
+}
+

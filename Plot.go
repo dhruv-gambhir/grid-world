@@ -53,6 +53,7 @@ func PlotValueIteration() {
 	} else {
 		fmt.Println("Saved value_iteration.png")
 	}
+    fmt.Println()
 }
 
 // Plot Function
@@ -98,5 +99,6 @@ func PlotPolicyIteration() {
 		fmt.Println("Error saving policy_iteration plot:", err)
 	} else {
 		fmt.Println("saved policy_iteration.png")
+        fmt.Println()
 	}
 }

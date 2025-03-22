@@ -5,13 +5,10 @@ import (
 	"math"
 )
 
-// storing history for plotting
-var policyIterationHistory []([numRows][numCols]float64)
-
 // PolicyIteration function
 func PolicyIteration() {
-	fmt.Println("=== POLICY ITERATION ===")
 
+    fmt.Println("Policy Iteration")
 	stable := false
 	for !stable {
 		// First we run Policy Evaluation
@@ -132,5 +129,6 @@ func PolicyIteration() {
 	}
 
 	fmt.Println("Policy Iteration converged.")
+    PrintUtilities()
 	PrintPolicy()
 }

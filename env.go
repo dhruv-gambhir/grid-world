@@ -29,3 +29,7 @@ var actions = []struct {
 // Tables to save the utility states and policies
 var utilityTable [numRows][numCols]float64
 var policyTable [numRows][numCols]string
+
+// history for plotting
+var valueIterationHistory []([numRows][numCols]float64)
+var policyIterationHistory []([numRows][numCols]float64)	
