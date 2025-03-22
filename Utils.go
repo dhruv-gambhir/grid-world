@@ -40,16 +40,19 @@ func PrintPolicy() {
 				if a == "" {
 					a = "."
 				}
-                switch a {
-                    case "U": fmt.Printf("↑  ")
-                    case "R": fmt.Printf("→  ")
-                    case "L": fmt.Printf("←  ")
-                    case "D": fmt.Printf("↓  ")
-                }
+				switch a {
+				case "U":
+					fmt.Printf("↑  ")
+				case "R":
+					fmt.Printf("→  ")
+				case "L":
+					fmt.Printf("←  ")
+				case "D":
+					fmt.Printf("↓  ")
+				}
 			}
 		}
 		fmt.Println()
 	}
 	fmt.Println()
 }
- 
