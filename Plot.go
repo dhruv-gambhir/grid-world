@@ -48,7 +48,7 @@ func PlotValueIteration() {
 	p.Legend.Top = true
 	p.Legend.Left = true
 
-	if err := p.Save(8*vg.Inch, 5*vg.Inch, "value_iteration.png"); err != nil {
+	if err := p.Save(8*vg.Inch, 5*vg.Inch, "value_iteration_x100.png"); err != nil {
 		fmt.Println("Error saving value_iteration plot:", err)
 	} else {
 		fmt.Println("Saved value_iteration.png")
@@ -94,7 +94,7 @@ func PlotPolicyIteration() {
 	p.Legend.Top = true
 	p.Legend.Left = true
 
-	if err := p.Save(8*vg.Inch, 5*vg.Inch, "policy_iteration.png"); err != nil {
+	if err := p.Save(8*vg.Inch, 5*vg.Inch, "policy_iteration_x100.png"); err != nil {
 		fmt.Println("Error saving policy_iteration plot:", err)
 	} else {
 		fmt.Println("saved policy_iteration.png")

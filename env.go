@@ -2,17 +2,12 @@ package main
 
 // Environment constants
 const (
-	numRows            = 6
-	numCols            = 6
+	numRows            = 600
+	numCols            = 600
 	discount           = 0.99
 	threshold          = 1e-6
 	intendedMoveProb   = 0.8
 	unintendedMoveProb = 0.1
-
-	// rewards for each color square
-	rewardWhite = -0.05
-	rewardGreen = 1.0
-	rewardBrown = -1.0
 )
 
 // Actions that can be taken
