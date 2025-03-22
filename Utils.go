@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// IsValid checks if (r, c) is in-bounds and not a wall.
+// IsValid checks if square is in-bounds and not a wall.
 func IsValid(r, c int) bool {
 	if r < 0 || r >= numRows || c < 0 || c >= numCols {
 		return false
@@ -12,8 +12,7 @@ func IsValid(r, c int) bool {
 	return !Walls[[2]int{r, c}]
 }
 
-// PrintUtilities shows the numeric utility values for each cell,
-// printing W for Walls.
+// Priting utility values
 func PrintUtilities() {
 	fmt.Println("Utility Table:")
 	for r := 0; r < numRows; r++ {
@@ -29,7 +28,7 @@ func PrintUtilities() {
 	fmt.Println()
 }
 
-// printPolicy shows the best action symbol in each cell, or [W] for Walls.
+// Prints optimal policy
 func PrintPolicy() {
 	fmt.Println("Policy Table:")
 	for r := 0; r < numRows; r++ {
@@ -54,21 +53,3 @@ func PrintPolicy() {
 	fmt.Println()
 }
  
-
-// averageUtility computes the average utility across all valid cells
-func AverageUtility() float64 {
-	var sum float64
-	var count int
-	for r := 0; r < numRows; r++ {
-		for c := 0; c < numCols; c++ {
-			if !Walls[[2]int{r, c}] {
-				sum += utilityTable[r][c]
-				count++
-			}
-		}
-	}
-	if count == 0 {
-		return 0
-	}
-	return sum / float64(count)
-}

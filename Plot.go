@@ -9,23 +9,20 @@ import (
     "gonum.org/v1/plot/vg"
 )
 
-// PlotValueIterationPerState draws one line per cell's utility
-// across all Value Iteration iterations, assigning each line a color.
-func PlotValueIterationPerState() {
+// Plot function
+func PlotValueIteration() {
     p := plot.New()
-    p.Title.Text = "Value Iteration: Utility per State"
-    p.X.Label.Text = "Iteration"
-    p.Y.Label.Text = "Utility"
+    p.Title.Text = "Value Iteration"
+    p.X.Label.Text = "Iterations"
+    p.Y.Label.Text = "Utility Estimates"
 
     lineIndex := 0
-    // For each cell, build a line series of utility across iterations
     for r := 0; r < numRows; r++ {
         for c := 0; c < numCols; c++ {
             if Walls[[2]int{r, c}] {
-                continue // skip walls
+                continue // skipping walls
             }
 
-            // Build XY points for this (r,c)
             pts := make(plotter.XYs, len(valueIterationHistory))
             for i := 0; i < len(valueIterationHistory); i++ {
                 pts[i].X = float64(i)
@@ -38,10 +35,8 @@ func PlotValueIterationPerState() {
                 return
             }
 
-            // Assign a unique color from the built-in palette
             line.Color = plotutil.Color(lineIndex)
 
-            // Label in the legend with (row,col)
             label := fmt.Sprintf("(%d,%d)", r, c)
             p.Add(line)
             p.Legend.Add(label, line)
@@ -50,25 +45,22 @@ func PlotValueIterationPerState() {
         }
     }
 
-    // Adjust legend position if you prefer:
     p.Legend.Top = true
     p.Legend.Left = true
 
-    // Save to PNG
-    if err := p.Save(8*vg.Inch, 5*vg.Inch, "vi_states.png"); err != nil {
-        fmt.Println("Error saving VI plot:", err)
+    if err := p.Save(8*vg.Inch, 5*vg.Inch, "value_iteration.png"); err != nil {
+        fmt.Println("Error saving value_iteration plot:", err)
     } else {
-        fmt.Println("Saved vi_states.png")
+        fmt.Println("Saved value_iteration.png")
     }
 }
 
-// PlotPolicyIterationPerState draws one line per cell’s utility
-// across all Policy Iteration iterations, assigning each line a color.
-func PlotPolicyIterationPerState() {
+//Plot Function
+func PlotPolicyIteration() {
     p := plot.New()
-    p.Title.Text = "Policy Iteration: Utility per State"
-    p.X.Label.Text = "Iteration"
-    p.Y.Label.Text = "Utility"
+    p.Title.Text = "Policy Iteration"
+    p.X.Label.Text = "Iterations"
+    p.Y.Label.Text = "Utility Estimates"
 
     lineIndex := 0
     for r := 0; r < numRows; r++ {
@@ -89,7 +81,6 @@ func PlotPolicyIterationPerState() {
                 return
             }
 
-            // Assign a color
             line.Color = plotutil.Color(lineIndex)
 
             label := fmt.Sprintf("(%d,%d)", r, c)
@@ -103,10 +94,10 @@ func PlotPolicyIterationPerState() {
     p.Legend.Top = true
     p.Legend.Left = true
 
-    if err := p.Save(8*vg.Inch, 5*vg.Inch, "pi_states.png"); err != nil {
-        fmt.Println("Error saving PI plot:", err)
+    if err := p.Save(8*vg.Inch, 5*vg.Inch, "policy_iteration.png"); err != nil {
+        fmt.Println("Error saving policy_iteration plot:", err)
     } else {
-        fmt.Println("Saved pi_states.png")
+        fmt.Println("saved policy_iteration.png")
     }
 }
 

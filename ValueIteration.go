@@ -5,10 +5,10 @@ import (
     "math"
 )
 
-// We'll store a slice of utility snapshots, one per iteration
+// storing for plotting
 var valueIterationHistory []([numRows][numCols]float64)
 
-// ValueIteration runs until convergence, storing each iteration’s utilities.
+// Value iteration function
 func ValueIteration() {
     fmt.Println("=== VALUE ITERATION ===")
 
@@ -22,12 +22,11 @@ func ValueIteration() {
                     continue
                 }
 
-                // Find best action
+                // Finding max utility value
                 bestVal := math.Inf(-1)
                 for _, intended := range actions {
                     actionVal := 0.0
                     totProb   := 0.0
-                    // distribution over actual moves
                     for _, actual := range actions {
                         prob := unintendedMoveProb
                         if actual.dr == intended.dr && actual.dc == intended.dc {
@@ -58,10 +57,13 @@ func ValueIteration() {
             }
         }
 
+        // update utility table
         utilityTable = newUtility
-        // append a snapshot of the entire table
+
+        // for plotting
         valueIterationHistory = append(valueIterationHistory, utilityTable)
 
+        // check if threshold is reached
         if delta < threshold {
             break
         }

@@ -9,12 +9,13 @@ const (
     intendedMoveProb   = 0.8
     unintendedMoveProb = 0.1
 
+    // rewards for each color square
     rewardWhite = -0.05
     rewardGreen = 1.0
     rewardBrown = -1.0
 )
 
-// Actions (Up, Down, Left, Right)
+// Actions that can be taken
 var actions = []struct {
     dr, dc int
     label  string
@@ -25,6 +26,6 @@ var actions = []struct {
     {0, 1,  "R"},
 }
 
-// Global utility table & policy
+// Tables to save the utility states and policies
 var utilityTable [numRows][numCols]float64
 var policyTable  [numRows][numCols]string

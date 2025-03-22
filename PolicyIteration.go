@@ -5,16 +5,16 @@ import (
     "math"
 )
 
-// We'll store a slice of utility snapshots for Policy Iteration as well
+// storing history for plotting
 var policyIterationHistory []([numRows][numCols]float64)
 
-// PolicyIteration runs evaluation/improvement until stable, storing each iteration’s utilities.
+// PolicyIteration function
 func PolicyIteration() {
     fmt.Println("=== POLICY ITERATION ===")
 
     stable := false
     for !stable {
-        // 1) Policy Evaluation
+        // First we run Policy Evaluation
         for {
             var newUtility [numRows][numCols]float64
             var delta float64
@@ -25,15 +25,15 @@ func PolicyIteration() {
                         continue
                     }
 
-                    // The chosen action is whatever policy says
+                    //chosen action from policy iteration for each cell, intiall all move-right
                     chosen := policyTable[r][c]
                     if chosen == "" || chosen == "W" {
-                        // no policy set => do nothing special
+                        // empty means no update is necessary
                         newUtility[r][c] = utilityTable[r][c]
                         continue
                     }
 
-                    // find the deltas for the chosen action
+                    // finding the deltas for the chosen action
                     var chosenDr, chosenDc int
                     for _, a := range actions {
                         if a.label == chosen {
@@ -42,9 +42,9 @@ func PolicyIteration() {
                         }
                     }
 
+                    //find probability distribution
                     val := 0.0
-                    totProb := 0.0
-                    // distribution over actual moves
+                    totalProb := 0.0
                     for _, actual := range actions {
                         prob := unintendedMoveProb
                         if actual.dr == chosenDr && actual.dc == chosenDc {
@@ -56,10 +56,10 @@ func PolicyIteration() {
                             nr, nc = r, c
                         }
                         val += prob * (Rewards[nr][nc] + discount*utilityTable[nr][nc])
-                        totProb += prob
+                        totalProb += prob
                     }
-                    if totProb > 0 {
-                        val /= totProb
+                    if totalProb > 0 {
+                        val /= totalProb
                     }
 
                     newUtility[r][c] = val
@@ -79,7 +79,7 @@ func PolicyIteration() {
             }
         }
 
-        // 2) Policy Improvement
+        // Next we run Policy Improvement
         stable = true
         for r := 0; r < numRows; r++ {
             for c := 0; c < numCols; c++ {
@@ -90,12 +90,13 @@ func PolicyIteration() {
                 oldAction := policyTable[r][c]
 
                 bestAction := oldAction
+                // best utility value of each cell
                 bestValue  := math.Inf(-1)
 
-                // Evaluate all possible actions
+                // finfing best action
                 for _, candidate := range actions {
                     val := 0.0
-                    totProb := 0.0
+                    totalProb := 0.0
 
                     for _, actual := range actions {
                         prob := unintendedMoveProb
@@ -107,10 +108,10 @@ func PolicyIteration() {
                             nr, nc = r, c
                         }
                         val += prob * (Rewards[nr][nc] + discount*utilityTable[nr][nc])
-                        totProb += prob
+                        totalProb += prob
                     }
-                    if totProb > 0 {
-                        val /= totProb
+                    if totalProb > 0 {
+                        val /= totalProb
                     }
 
                     if val > bestValue {
@@ -126,7 +127,7 @@ func PolicyIteration() {
             }
         }
 
-        // Another snapshot after improvement
+        // save for plotting
         policyIterationHistory = append(policyIterationHistory, utilityTable)
     }
 

@@ -5,7 +5,7 @@ func main() {
     for r := 0; r < numRows; r++ {
         for c := 0; c < numCols; c++ {
             utilityTable[r][c] = 0.0
-            // Start with a naive policy (e.g. always "R" if not a wall)
+            // Initial policy is move right for each state (except walls)
             if !Walls[[2]int{r, c}] {
                 policyTable[r][c] = "R"
             } else {
@@ -14,26 +14,23 @@ func main() {
         }
     }
 
-    // 1) Run Value Iteration
+    
+    // Run and plot Value Iteration
     ValueIteration()
+    PlotValueIteration()
 
-    // Plot each cell’s utility across iterations for Value Iteration
-    PlotValueIterationPerState()
-
-    // 2) Reset utilities for Policy Iteration
+    // Reset utilities
     for r := 0; r < numRows; r++ {
         for c := 0; c < numCols; c++ {
             utilityTable[r][c] = 0.0
         }
     }
 
-    // Clear history if you want a fresh start
+    // Reset history
     policyIterationHistory = nil
 
-    // 3) Run Policy Iteration
+    // Run and plot Policy Iteration
     PolicyIteration()
-
-    // Plot each cell’s utility across iterations for Policy Iteration
-    PlotPolicyIterationPerState()
+    PlotPolicyIteration()
 }
 
